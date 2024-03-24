@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Check-in</title>
+    <title>Loyalty Reward System</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -160,7 +160,7 @@
         <button id="checkInBtn">Check-in</button>
         <div id="resetBtn">Reset Attendance</div>
         <div id="rewardPoints">Total Attendance: <span id="points">0</span></div>
-        <div id="timer">Time remaining: <span id="countdown">24:00:00</span></div>
+        <div id="timer">Time remaining: <span id="countdown">15:00:00</span></div>
         <div id="progressBar">
             <div id="progressBarFill"></div>
         </div>
@@ -177,7 +177,7 @@
 
     <script>
         let timer;
-        let countdown = 24 * 60 * 60; // 24 hours countdown in seconds
+        let countdown = 15 * 60 * 60; // 15 hours countdown in seconds
         let rewardPoints = 0;
         let lastCheckInTime;
 
@@ -194,7 +194,7 @@
                 lastCheckInTime = parseInt(localStorage.getItem('lastCheckInTime'));
                 const currentTime = Math.floor(new Date().getTime() / 1000);
                 const elapsedTime = currentTime - lastCheckInTime;
-                countdown = Math.max(24 * 60 * 60 - elapsedTime, 0);
+                countdown = Math.max(15 * 60 * 60 - elapsedTime, 0); // 15 hours countdown
                 startTimer();
             } else {
                 lastCheckInTime = null;
@@ -208,8 +208,8 @@
 
         // Function to update reward points and last check-in time
         function updatePoints() {
-            if (lastCheckInTime && (Math.floor(new Date().getTime() / 1000) - lastCheckInTime < 24 * 60 * 60)) {
-                alert("You can only check in once per 24 hours.");
+            if (lastCheckInTime && (Math.floor(new Date().getTime() / 1000) - lastCheckInTime < 15 * 60 * 60)) {
+                alert("You can only check in once per 15 hours.");
                 return;
             }
 
@@ -225,7 +225,7 @@
 
             setTimeout(() => {
                 document.getElementById('checkInBtn').disabled = false;
-            }, 24 * 60 * 60 * 1000);
+            }, 15 * 60 * 60 * 1000); // 15 hours
         }
 
         // Function to reset reward points and progress bar
@@ -239,8 +239,8 @@
             }
           }
 
-        // Function to start the timer
-        function startTimer() {
+        // Function to start the timer 
+          function startTimer() {
             clearInterval(timer);
             timer = setInterval(updateTimer, 1000);
         }
@@ -255,8 +255,8 @@
 
             if (countdown <= 0) {
                 clearInterval(timer);
-                countdown = 24 * 60 * 60; // Reset countdown to 24 hours
-                document.getElementById('countdown').textContent = '24:00:00';
+                countdown = 15 * 60 * 60; // Reset countdown to 15 hours
+                document.getElementById('countdown').textContent = '15:00:00';
                 updateProgressBar();
             }
         }
@@ -268,7 +268,7 @@
 
         // Function to update the progress bar
         function updateProgressBar(){
-            const fillWidth = (24 * 60 * 60 - countdown) / (24 * 60 * 60) * 100;
+            const fillWidth = (15 * 60 * 60 - countdown) / (15 * 60 * 60) * 100; // 15 hours
             document.getElementById('progressBarFill').style.width = fillWidth + '%';
         }
 
@@ -282,7 +282,7 @@
             document.getElementById('checkInBtn').disabled = true;
             setTimeout(() => {
                 document.getElementById('checkInBtn').disabled = false;
-            }, 24 * 60 * 60 * 1000);
+            }, 15 * 60 * 60 * 1000); // 15 hours
         }
 
         // Function to load tasks from local storage
