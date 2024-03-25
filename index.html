@@ -416,13 +416,16 @@
         localStorage.setItem('absentDates', JSON.stringify(absentDates));
     }
 
-    // Function to delete absent date from local storage
-    function deleteAbsentDate(date) {
+    // Function to delete absent date from local storage with confirmation
+function deleteAbsentDate(date) {
+    const confirmDelete = confirm("Are you sure you want to delete this absent date?");
+    if (confirmDelete) {
         let absentDates = JSON.parse(localStorage.getItem('absentDates'));
         absentDates = absentDates.filter(item => item !== date);
         localStorage.setItem('absentDates', JSON.stringify(absentDates));
         loadAbsentDates(); // Reload absent dates
     }
+}
 
     // Function to load absent dates from local storage
     function loadAbsentDates() {
